@@ -1,0 +1,604 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4A44709F233A078900405061 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A44709E233A078900405061 /* AppDelegate.m */; };
+		4A4470A2233A078900405061 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4470A1233A078900405061 /* SceneDelegate.m */; };
+		4A4470A5233A078900405061 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4470A4233A078900405061 /* ViewController.m */; };
+		4A4470A8233A078900405061 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A4470A6233A078900405061 /* Main.storyboard */; };
+		4A4470AA233A078A00405061 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A4470A9233A078A00405061 /* Assets.xcassets */; };
+		4A4470AD233A078A00405061 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A4470AB233A078A00405061 /* LaunchScreen.storyboard */; };
+		4A4470B0233A078A00405061 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4470AF233A078A00405061 /* main.m */; };
+		4A4470BA233A078A00405061 /* LKPhotoBrowerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4470B9233A078A00405061 /* LKPhotoBrowerTests.m */; };
+		4A4470C5233A078A00405061 /* LKPhotoBrowerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4470C4233A078A00405061 /* LKPhotoBrowerUITests.m */; };
+		4A4470D4233A07C800405061 /* LKPhotoBrowerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4470D2233A07C800405061 /* LKPhotoBrowerVC.m */; };
+		4A4470D8233A07D100405061 /* PhotoBrowerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4470D5233A07D100405061 /* PhotoBrowerCell.m */; };
+		4A4470D9233A07D100405061 /* PhotoBrowerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A4470D7233A07D100405061 /* PhotoBrowerCell.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4A4470B6233A078A00405061 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A447092233A078900405061 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A447099233A078900405061;
+			remoteInfo = LKPhotoBrower;
+		};
+		4A4470C1233A078A00405061 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A447092233A078900405061 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A447099233A078900405061;
+			remoteInfo = LKPhotoBrower;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4A44709A233A078900405061 /* LKPhotoBrower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LKPhotoBrower.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A44709D233A078900405061 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4A44709E233A078900405061 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4A4470A0233A078900405061 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		4A4470A1233A078900405061 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		4A4470A3233A078900405061 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		4A4470A4233A078900405061 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		4A4470A7233A078900405061 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4A4470A9233A078A00405061 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4A4470AC233A078A00405061 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4A4470AE233A078A00405061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A4470AF233A078A00405061 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4A4470B5233A078A00405061 /* LKPhotoBrowerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LKPhotoBrowerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A4470B9233A078A00405061 /* LKPhotoBrowerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKPhotoBrowerTests.m; sourceTree = "<group>"; };
+		4A4470BB233A078A00405061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A4470C0233A078A00405061 /* LKPhotoBrowerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LKPhotoBrowerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A4470C4233A078A00405061 /* LKPhotoBrowerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKPhotoBrowerUITests.m; sourceTree = "<group>"; };
+		4A4470C6233A078A00405061 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A4470D2233A07C800405061 /* LKPhotoBrowerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKPhotoBrowerVC.m; sourceTree = "<group>"; };
+		4A4470D3233A07C800405061 /* LKPhotoBrowerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKPhotoBrowerVC.h; sourceTree = "<group>"; };
+		4A4470D5233A07D100405061 /* PhotoBrowerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoBrowerCell.m; sourceTree = "<group>"; };
+		4A4470D6233A07D100405061 /* PhotoBrowerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoBrowerCell.h; sourceTree = "<group>"; };
+		4A4470D7233A07D100405061 /* PhotoBrowerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoBrowerCell.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4A447097233A078900405061 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A4470B2233A078A00405061 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A4470BD233A078A00405061 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4A447091233A078900405061 = {
+			isa = PBXGroup;
+			children = (
+				4A44709C233A078900405061 /* LKPhotoBrower */,
+				4A4470B8233A078A00405061 /* LKPhotoBrowerTests */,
+				4A4470C3233A078A00405061 /* LKPhotoBrowerUITests */,
+				4A44709B233A078900405061 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4A44709B233A078900405061 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A44709A233A078900405061 /* LKPhotoBrower.app */,
+				4A4470B5233A078A00405061 /* LKPhotoBrowerTests.xctest */,
+				4A4470C0233A078A00405061 /* LKPhotoBrowerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4A44709C233A078900405061 /* LKPhotoBrower */ = {
+			isa = PBXGroup;
+			children = (
+				4A44709D233A078900405061 /* AppDelegate.h */,
+				4A44709E233A078900405061 /* AppDelegate.m */,
+				4A4470A0233A078900405061 /* SceneDelegate.h */,
+				4A4470A1233A078900405061 /* SceneDelegate.m */,
+				4A4470A3233A078900405061 /* ViewController.h */,
+				4A4470A4233A078900405061 /* ViewController.m */,
+				4A4470D3233A07C800405061 /* LKPhotoBrowerVC.h */,
+				4A4470D2233A07C800405061 /* LKPhotoBrowerVC.m */,
+				4A4470D6233A07D100405061 /* PhotoBrowerCell.h */,
+				4A4470D5233A07D100405061 /* PhotoBrowerCell.m */,
+				4A4470D7233A07D100405061 /* PhotoBrowerCell.xib */,
+				4A4470A6233A078900405061 /* Main.storyboard */,
+				4A4470A9233A078A00405061 /* Assets.xcassets */,
+				4A4470AB233A078A00405061 /* LaunchScreen.storyboard */,
+				4A4470AE233A078A00405061 /* Info.plist */,
+				4A4470AF233A078A00405061 /* main.m */,
+			);
+			path = LKPhotoBrower;
+			sourceTree = "<group>";
+		};
+		4A4470B8233A078A00405061 /* LKPhotoBrowerTests */ = {
+			isa = PBXGroup;
+			children = (
+				4A4470B9233A078A00405061 /* LKPhotoBrowerTests.m */,
+				4A4470BB233A078A00405061 /* Info.plist */,
+			);
+			path = LKPhotoBrowerTests;
+			sourceTree = "<group>";
+		};
+		4A4470C3233A078A00405061 /* LKPhotoBrowerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4A4470C4233A078A00405061 /* LKPhotoBrowerUITests.m */,
+				4A4470C6233A078A00405061 /* Info.plist */,
+			);
+			path = LKPhotoBrowerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4A447099233A078900405061 /* LKPhotoBrower */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A4470C9233A078A00405061 /* Build configuration list for PBXNativeTarget "LKPhotoBrower" */;
+			buildPhases = (
+				4A447096233A078900405061 /* Sources */,
+				4A447097233A078900405061 /* Frameworks */,
+				4A447098233A078900405061 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LKPhotoBrower;
+			productName = LKPhotoBrower;
+			productReference = 4A44709A233A078900405061 /* LKPhotoBrower.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4A4470B4233A078A00405061 /* LKPhotoBrowerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A4470CC233A078A00405061 /* Build configuration list for PBXNativeTarget "LKPhotoBrowerTests" */;
+			buildPhases = (
+				4A4470B1233A078A00405061 /* Sources */,
+				4A4470B2233A078A00405061 /* Frameworks */,
+				4A4470B3233A078A00405061 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4A4470B7233A078A00405061 /* PBXTargetDependency */,
+			);
+			name = LKPhotoBrowerTests;
+			productName = LKPhotoBrowerTests;
+			productReference = 4A4470B5233A078A00405061 /* LKPhotoBrowerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4A4470BF233A078A00405061 /* LKPhotoBrowerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A4470CF233A078A00405061 /* Build configuration list for PBXNativeTarget "LKPhotoBrowerUITests" */;
+			buildPhases = (
+				4A4470BC233A078A00405061 /* Sources */,
+				4A4470BD233A078A00405061 /* Frameworks */,
+				4A4470BE233A078A00405061 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4A4470C2233A078A00405061 /* PBXTargetDependency */,
+			);
+			name = LKPhotoBrowerUITests;
+			productName = LKPhotoBrowerUITests;
+			productReference = 4A4470C0233A078A00405061 /* LKPhotoBrowerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4A447092233A078900405061 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1100;
+				ORGANIZATIONNAME = Lukay;
+				TargetAttributes = {
+					4A447099233A078900405061 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					4A4470B4233A078A00405061 = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 4A447099233A078900405061;
+					};
+					4A4470BF233A078A00405061 = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 4A447099233A078900405061;
+					};
+				};
+			};
+			buildConfigurationList = 4A447095233A078900405061 /* Build configuration list for PBXProject "LKPhotoBrower" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4A447091233A078900405061;
+			productRefGroup = 4A44709B233A078900405061 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4A447099233A078900405061 /* LKPhotoBrower */,
+				4A4470B4233A078A00405061 /* LKPhotoBrowerTests */,
+				4A4470BF233A078A00405061 /* LKPhotoBrowerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4A447098233A078900405061 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A4470AD233A078A00405061 /* LaunchScreen.storyboard in Resources */,
+				4A4470AA233A078A00405061 /* Assets.xcassets in Resources */,
+				4A4470A8233A078900405061 /* Main.storyboard in Resources */,
+				4A4470D9233A07D100405061 /* PhotoBrowerCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A4470B3233A078A00405061 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A4470BE233A078A00405061 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4A447096233A078900405061 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A4470A5233A078900405061 /* ViewController.m in Sources */,
+				4A4470D8233A07D100405061 /* PhotoBrowerCell.m in Sources */,
+				4A44709F233A078900405061 /* AppDelegate.m in Sources */,
+				4A4470B0233A078A00405061 /* main.m in Sources */,
+				4A4470A2233A078900405061 /* SceneDelegate.m in Sources */,
+				4A4470D4233A07C800405061 /* LKPhotoBrowerVC.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A4470B1233A078A00405061 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A4470BA233A078A00405061 /* LKPhotoBrowerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A4470BC233A078A00405061 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A4470C5233A078A00405061 /* LKPhotoBrowerUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4A4470B7233A078A00405061 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4A447099233A078900405061 /* LKPhotoBrower */;
+			targetProxy = 4A4470B6233A078A00405061 /* PBXContainerItemProxy */;
+		};
+		4A4470C2233A078A00405061 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4A447099233A078900405061 /* LKPhotoBrower */;
+			targetProxy = 4A4470C1233A078A00405061 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4A4470A6233A078900405061 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A4470A7233A078900405061 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4A4470AB233A078A00405061 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A4470AC233A078A00405061 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4A4470C7233A078A00405061 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4A4470C8233A078A00405061 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4A4470CA233A078A00405061 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = LKPhotoBrower/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Lukay.LKPhotoBrower;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4A4470CB233A078A00405061 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = LKPhotoBrower/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Lukay.LKPhotoBrower;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4A4470CD233A078A00405061 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LKPhotoBrowerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Lukay.LKPhotoBrowerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LKPhotoBrower.app/LKPhotoBrower";
+			};
+			name = Debug;
+		};
+		4A4470CE233A078A00405061 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LKPhotoBrowerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Lukay.LKPhotoBrowerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LKPhotoBrower.app/LKPhotoBrower";
+			};
+			name = Release;
+		};
+		4A4470D0233A078A00405061 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LKPhotoBrowerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Lukay.LKPhotoBrowerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LKPhotoBrower;
+			};
+			name = Debug;
+		};
+		4A4470D1233A078A00405061 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LKPhotoBrowerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Lukay.LKPhotoBrowerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LKPhotoBrower;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4A447095233A078900405061 /* Build configuration list for PBXProject "LKPhotoBrower" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A4470C7233A078A00405061 /* Debug */,
+				4A4470C8233A078A00405061 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4A4470C9233A078A00405061 /* Build configuration list for PBXNativeTarget "LKPhotoBrower" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A4470CA233A078A00405061 /* Debug */,
+				4A4470CB233A078A00405061 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4A4470CC233A078A00405061 /* Build configuration list for PBXNativeTarget "LKPhotoBrowerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A4470CD233A078A00405061 /* Debug */,
+				4A4470CE233A078A00405061 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4A4470CF233A078A00405061 /* Build configuration list for PBXNativeTarget "LKPhotoBrowerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A4470D0233A078A00405061 /* Debug */,
+				4A4470D1233A078A00405061 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4A447092233A078900405061 /* Project object */;
+}
