@@ -8,14 +8,14 @@
 
 #import "LKPhotoBrowerVC.h"
 #import "PhotoBrowerCell.h"
-//#import "UIColor+Cus.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AVKit/AVKit.h>
-@import Photos;
+
+#import "LKPhotoFullScreenCollectionCell.h"
 
 #define isPortrait ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown)
 
-@interface LKPhotoBrowerVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, UIScrollViewDelegate>
+@interface LKPhotoBrowerVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, UIScrollViewDelegate,LKPhotoFullScreenCollectionCellDelegate>
 {
     UICollectionViewFlowLayout *_layout;
     CGPoint _startLocation;
@@ -25,9 +25,10 @@
     UILabel *_fileSizeLabel;
     AVPlayer *_player;
     AVPlayerViewController *_playerController;
+    
+    UIPageControl *_pageControl;
 }
 @property (nonatomic, strong) UICollectionView *collectionView;
-
 
 @end
 
@@ -42,6 +43,22 @@
     }
     return self;
 }
+
++ (instancetype)photoBrowserForImages:(NSArray<LKPhotoBrowserImageDataProtocol> *)dataArray index:(int)currentIndex source:(UIImageView *)sourceImgView{
+    
+    LKPhotoBrowerVC *iv = [[LKPhotoBrowerVC alloc] init];
+    iv.dataArray = [dataArray copy];
+    iv.currentIndex = currentIndex;
+    iv.sourceImgView = sourceImgView;
+    
+    return iv;
+}
+
+- (void)showFromViewController:(UIViewController *)rootViewController{
+    [rootViewController presentViewController:self animated:YES completion:nil];
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -58,16 +75,38 @@
     label.shadowOffset = CGSizeMake(0.5, 0.5);
     [self.view addSubview:label];
     _fileSizeLabel = label;
-
+    
+    _pageControl = ({
+        UIPageControl *pc = [[UIPageControl alloc] init];
+        pc.hidesForSinglePage = YES;
+        
+        [self.view addSubview:pc];
+        
+        pc.translatesAutoresizingMaskIntoConstraints = NO;
+        [pc.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20].active = YES;
+        [pc.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20].active = YES;
+        [pc.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor].active = YES;
+        [pc.heightAnchor constraintEqualToConstant:20].active = YES;
+        
+        pc;
+    });
+    _pageControl.numberOfPages = [self.dataArray count];
+    _pageControl.currentPage = self.currentIndex;
+    
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    [label.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.view.leadingAnchor constant:20].active = YES;
+    [label.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    [label.bottomAnchor constraintEqualToAnchor:_pageControl.topAnchor constant:-5].active = YES;
+    [label.heightAnchor constraintEqualToConstant:20].active = YES;
 }
 
 -(void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    [_layout setItemSize:(CGSize){self.view.frame.size.width + 20,self.view.frame.size.height}];
+    [_layout setItemSize:(CGSize){self.view.frame.size.width,self.view.frame.size.height}];
     _layout.minimumInteritemSpacing = 0;
     _layout.minimumLineSpacing = 0;
     
-    [_collectionView setFrame:(CGRect){{-10,0},{self.view.frame.size.width + 20,self.view.frame.size.height}}];
+    [_collectionView setFrame:(CGRect){{0,0},{self.view.frame.size.width,self.view.frame.size.height}}];
     [_collectionView setCollectionViewLayout:_layout];
     if (!_isShow) {
         [self photoBrowserWillShowWithAnimated];
@@ -91,7 +130,7 @@
     
     [_collectionView setHidden:true];
     self.view.alpha = 0;
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [imgView setCenter:[self.view center]];
         [imgView setBounds:(CGRect){CGPointZero,CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)}];
         [self->_collectionView setAlpha:1];
@@ -108,30 +147,12 @@
     
 }
 
+//LKPhotoFullScreenCollectionCellDelegate <NSObject>
+- (void)lkpb_singleTapGesture{
+    [self scrollViewDidTap];
+}
 - (void)addGesture {
     [self.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDidGesture:)]];
-    
-    UITapGestureRecognizer *tap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(scrollViewDidTap)];
-    
-    UITapGestureRecognizer *doubleTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(scrollViewDidDoubleTap:)];
-    
-    
-    // 2.set gesture require
-    [tap setNumberOfTapsRequired:1];
-    [tap setNumberOfTouchesRequired:1];
-    [doubleTap setNumberOfTapsRequired:2];
-    [doubleTap setNumberOfTouchesRequired:1];
-    
-    // 3.conflict resolution
-    [tap requireGestureRecognizerToFail:doubleTap];
-    
-    // 4.add gesture
-    [self.view addGestureRecognizer:tap];
-    [self.view addGestureRecognizer:doubleTap];
 }
 
 - (void)panDidGesture:(UIPanGestureRecognizer *)pan {
@@ -146,13 +167,13 @@
     
     CGPoint p = [pan locationInView:self.collectionView];
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:p];
-    PhotoBrowerCell *cell = (PhotoBrowerCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+    LKPhotoFullScreenCollectionCell *cell = (LKPhotoFullScreenCollectionCell *)[_collectionView cellForItemAtIndexPath:indexPath];
     
-    imageView = cell.imgView;
+    imageView = [cell.photoView imgView];
     
-    if(cell.cSView.zoomScale > 1.f) return;
+    if(cell.photoView.zoomScale > 1.f) return;
     point       = [pan translationInView:self.view];
-    location    = [pan locationInView:cell.cSView];
+    location    = [pan locationInView:cell.photoView];
     velocity    = [pan velocityInView:self.view];
     
     
@@ -175,7 +196,7 @@
             CGFloat rateY = (_startLocation.y - _startFrame.origin.y) / _startFrame.size.height;
             CGFloat y = location.y - height * rateY;
             imageView.frame = CGRectMake(x, y, width, height);
-
+            
             self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:percent];
         }
             break;
@@ -186,14 +207,18 @@
             if(fabs(point.y) > 200 || fabs(velocity.y) > 500){
                 // dismiss
                 _startFrame = imageView.frame;
-//                [self dismissController];
-                UIImageView *imgVeiw = [[UIImageView alloc] initWithFrame:imageView.frame];
+                CGRect rectOld = [imageView.superview convertRect:imageView.frame toView:self.view];
+                UIImageView *imgVeiw = [[UIImageView alloc] initWithFrame:rectOld];
                 imgVeiw.image = imageView.image;
+                
+                imgVeiw.contentMode = self.sourceImgView.contentMode;
+                imgVeiw.clipsToBounds = self.sourceImgView.clipsToBounds;
+                
                 [self.view addSubview:imgVeiw];
                 self.collectionView.hidden = YES;
                 self.view.backgroundColor = [UIColor clearColor];
                 CGRect rect = [self.sourceImgView.superview convertRect:self.sourceImgView.frame toView:self.view];
-                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                     imgVeiw.frame = rect;
                     self->_collectionView.alpha = 0.f;
                 } completion:^(BOOL finished) {
@@ -221,58 +246,37 @@
 }
 
 - (void)dismissController {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_currentIndex inSection:0];
+    LKPhotoFullScreenCollectionCell *cell = (LKPhotoFullScreenCollectionCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+    
+    UIImageView *imageView = [cell.photoView imgView];
+    
+    CGRect rectOld = [[cell.photoView imgView].superview convertRect:[cell.photoView imgView].frame toView:self.view];
+    
+    UIImageView *imgVeiw = [[UIImageView alloc] initWithFrame:rectOld];
+    imgVeiw.image = imageView.image;
+    
+    imgVeiw.contentMode = self.sourceImgView.contentMode;
+    imgVeiw.clipsToBounds = self.sourceImgView.clipsToBounds;
+    
+    [self.view addSubview:imgVeiw];
+    self.collectionView.hidden = YES;
+    self.view.backgroundColor = [UIColor clearColor];
+    
+    CGRect rect = [self.sourceImgView.superview convertRect:self.sourceImgView.frame toView:self.view];
+    
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        imgVeiw.frame = rect;
         self->_collectionView.alpha = 0.f;
-        self.view.alpha = 0;
     } completion:^(BOOL finished) {
+        self->_startFrame = CGRectZero;
+        [imgVeiw removeFromSuperview];
         [self dismissViewControllerAnimated:false completion:nil];
     }];
 }
 
-#pragma mark - 长按
-- (void)longPressDidPress:(UILongPressGestureRecognizer *)longPress{
-    if(longPress.state == UIGestureRecognizerStateBegan){
-    
-    }
-}
-
 - (void)scrollViewDidTap{
     [self dismissController];
-}
-
-#pragma mark - 双击
-- (void)scrollViewDidDoubleTap:(UITapGestureRecognizer *)doubleTap{
-    // if image is download, if not ,just return;
-    
-    
-    CGPoint p = [doubleTap locationInView:self.collectionView];
-    NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:p];
-    if (indexPath == nil){
-        NSLog(@"couldn't find index path");
-        return;
-    }
-    
-    PHAsset *asset = [self.dataArray objectAtIndex:indexPath.item];
-    if (asset.mediaType == PHAssetMediaTypeVideo) {
-        return;
-    }
-    
-    PhotoBrowerCell *cell = (PhotoBrowerCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-    if(!cell || !cell.imgView.image) {
-        return;
-    }
-
-    if(cell.cSView.zoomScale <= 1){
-        // 1.catch the postion of the gesture
-        // 2.contentOffset.x of scrollView  + location x of gesture
-        CGFloat x = [doubleTap locationInView:cell].x + cell.cSView.contentOffset.x;
-        // 3.contentOffset.y + location y of gesture
-        CGFloat y = [doubleTap locationInView:cell].y + cell.cSView.contentOffset.y;
-        [cell.cSView zoomToRect:(CGRect){{x,y},CGSizeZero} animated:true];
-    }else{
-        // set scrollView zoom to original
-        [cell.cSView setZoomScale:1.f animated:true];
-    }
 }
 
 - (void)setupCollectionView {
@@ -297,28 +301,11 @@
     [_collectionView setBounces:true];
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
-    [self.collectionView registerNib:[UINib nibWithNibName:@"PhotoBrowerCell" bundle:nil] forCellWithReuseIdentifier:@"PhotoBrowerCellID"];
+    [self.collectionView registerClass:[LKPhotoFullScreenCollectionCell class] forCellWithReuseIdentifier:@"PhotoBrowerCellID"];
+    
     [self.view addSubview:self.collectionView];
     
     self.collectionView.showsVerticalScrollIndicator = NO;
-}
-
-- (void)updateFileSizeLabel:(float)fileSize {
-    if (fileSize <= 0) {
-        _fileSizeLabel.text = @"";
-        return;
-    }
-    float ns = fileSize;
-    NSString *unitStr = @"Kb";
-    if (fileSize > 1024) {
-        ns = fileSize/1024;
-        unitStr = @"Mb";
-        if (ns > 1024) {
-            ns = ns/1024;
-            unitStr = @"Gb";
-        }
-    }
-    _fileSizeLabel.text = [NSString stringWithFormat:@"%.1f%@", ns, unitStr];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -327,10 +314,18 @@
 
 - (void)updateCurrentImageFileSize {
     NSIndexPath *indexPath = [self.collectionView indexPathsForVisibleItems].firstObject;
-    PHAsset *asset = [self.dataArray objectAtIndex:indexPath.item];
-//    [LKPhotoManager getAssetSize:asset callback:^(float length) {
-//        [self updateFileSizeLabel:length];
-//    }];
+    id asset = [self.dataArray objectAtIndex:indexPath.item];
+    if ([asset respondsToSelector:@selector(mediaFileSizeStrCompletion:)]){
+        
+        [asset mediaFileSizeStrCompletion:^(NSString * _Nullable sizeStr) {
+            if (sizeStr != nil) {
+                self ->_fileSizeLabel.text = sizeStr;
+            }else{
+                self ->_fileSizeLabel.text = @"";
+            }
+        }];
+    }
+    _pageControl.currentPage = indexPath.item;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -342,15 +337,59 @@
     return self.dataArray.count;
 }
 
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    PhotoBrowerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoBrowerCellID" forIndexPath:indexPath];
-    PHAsset *asset = [self.dataArray objectAtIndex:indexPath.item];
-//    [LKPhotoManager getOrignalImageFromAlAsset:asset callback:^(UIImage * image) {
-//        cell.imgView.image = image;
-//    }];
+    LKPhotoFullScreenCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoBrowerCellID" forIndexPath:indexPath];
+    cell.delegate = self;
+    id asset = [self.dataArray objectAtIndex:indexPath.item];
+
+    __weak typeof(cell)weakCell = cell;
     
-    if (asset.mediaType == PHAssetMediaTypeVideo) {
+    [asset imageThumbnail:^(UIImage * _Nullable image, NSString * _Nullable imagePath) {
+        if (image){
+            [weakCell loadImage:image];
+        }else if (imagePath != nil && imagePath.length > 0) {
+            if ([imagePath hasPrefix:@"http"] || [imagePath hasPrefix:@"ftp"]) {
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    NSURL *url = [NSURL URLWithString:imagePath];
+                    if (url) {
+                        NSData *imageData = [NSData dataWithContentsOfURL:url];
+                        UIImage *imageFinal = [UIImage imageWithData:imageData];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [weakCell loadImage:imageFinal];
+                        });
+                    }
+                });
+            }else{
+                UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+                [weakCell loadImage:image];
+            }
+        }else{
+            [weakCell loadImage:nil];
+        }
+    } original:^(UIImage * _Nullable image, NSString * _Nullable imagePath) {
+        if (image){
+            [weakCell loadImage:image];
+        }else if (imagePath != nil && imagePath.length > 0) {
+            if ([imagePath hasPrefix:@"http"] || [imagePath hasPrefix:@"ftp"]) {
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    NSURL *url = [NSURL URLWithString:imagePath];
+                    if (url) {
+                        NSData *imageData = [NSData dataWithContentsOfURL:url];
+                        UIImage *imageFinal = [UIImage imageWithData:imageData];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [weakCell loadImage:imageFinal];
+                        });
+                    }
+                });
+            }else{
+                UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+                [weakCell loadImage:image];
+            }
+        }else{
+            [weakCell loadImage:nil];
+        }
+    }];
+    if ([asset videoMedeaType]) {
         cell.playBtn.hidden = NO;
         if (![cell.playBtn.allTargets containsObject:self]) {
                [cell.playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -372,18 +411,19 @@
 
 - (void)playBtnClick:(UIButton *)playBtn {
     NSIndexPath *indexPath = [self.collectionView indexPathsForVisibleItems].firstObject;
-    PHAsset *asset = [self.dataArray objectAtIndex:indexPath.item];
-    if (asset.mediaType != PHAssetMediaTypeVideo) {
+    id asset = [self.dataArray objectAtIndex:indexPath.item];
+    if (![asset videoMedeaType]) {
         return;
     }
-//    [[PHImageManager defaultManager] requestPlayerItemForVideo:asset.asset options:nil resultHandler:^(AVPlayerItem * _Nullable playerItem, NSDictionary * _Nullable info) {
-//        [self player:playerItem];
-//    }];
+    __weak typeof(self)weakSelf = self;
+    [asset videoPlayerItemCompletion:^(AVPlayerItem * _Nullable playerItem) {
+        if(playerItem){
+            [weakSelf player:playerItem];
+        }
+    }];
 }
 
 - (void)player:(AVPlayerItem *)playerItem {
-    
-//    AVPlayerViewController *a= nil;
     if (_player) {
         [_player pause];
         
@@ -400,15 +440,5 @@
     }];
     
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
