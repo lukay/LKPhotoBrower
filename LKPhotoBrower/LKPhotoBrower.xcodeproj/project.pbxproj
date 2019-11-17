@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E2A005F237E82DD00272B27 /* WTPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A0059237E82DD00272B27 /* WTPhotoView.m */; };
 		0E2A0060237E82DD00272B27 /* LKPhotoBrowerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A005D237E82DD00272B27 /* LKPhotoBrowerVC.m */; };
 		0E2A0061237E82DD00272B27 /* LKPhotoFullScreenCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A005E237E82DD00272B27 /* LKPhotoFullScreenCollectionCell.m */; };
 		0E2A0064237E830C00272B27 /* th.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A0063237E830C00272B27 /* th.jpg */; };
 		0E2A0069237E831700272B27 /* ImageDataSingleTest+Plus.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A0065237E831700272B27 /* ImageDataSingleTest+Plus.m */; };
 		0E2A006A237E831700272B27 /* ImageDataSingleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A0067237E831700272B27 /* ImageDataSingleTest.m */; };
+		2B963F91238055DA00D0308B /* LKPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B963F90238055DA00D0308B /* LKPhotoView.m */; };
 		4A44709F233A078900405061 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A44709E233A078900405061 /* AppDelegate.m */; };
 		4A4470A2233A078900405061 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4470A1233A078900405061 /* SceneDelegate.m */; };
 		4A4470A5233A078900405061 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4470A4233A078900405061 /* ViewController.m */; };
@@ -44,10 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0E2A0059237E82DD00272B27 /* WTPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTPhotoView.m; sourceTree = "<group>"; };
 		0E2A005A237E82DD00272B27 /* LKPhotoFullScreenCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKPhotoFullScreenCollectionCell.h; sourceTree = "<group>"; };
 		0E2A005B237E82DD00272B27 /* LKPhotoBrowerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKPhotoBrowerVC.h; sourceTree = "<group>"; };
-		0E2A005C237E82DD00272B27 /* WTPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTPhotoView.h; sourceTree = "<group>"; };
 		0E2A005D237E82DD00272B27 /* LKPhotoBrowerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKPhotoBrowerVC.m; sourceTree = "<group>"; };
 		0E2A005E237E82DD00272B27 /* LKPhotoFullScreenCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKPhotoFullScreenCollectionCell.m; sourceTree = "<group>"; };
 		0E2A0062237E830000272B27 /* LKPhotoBrower-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LKPhotoBrower-Prefix.pch"; sourceTree = "<group>"; };
@@ -56,6 +54,8 @@
 		0E2A0066237E831700272B27 /* ImageDataSingleTest+Plus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ImageDataSingleTest+Plus.h"; sourceTree = "<group>"; };
 		0E2A0067237E831700272B27 /* ImageDataSingleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDataSingleTest.m; sourceTree = "<group>"; };
 		0E2A0068237E831700272B27 /* ImageDataSingleTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDataSingleTest.h; sourceTree = "<group>"; };
+		2B963F8F238055DA00D0308B /* LKPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKPhotoView.h; sourceTree = "<group>"; };
+		2B963F90238055DA00D0308B /* LKPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKPhotoView.m; sourceTree = "<group>"; };
 		4A44709A233A078900405061 /* LKPhotoBrower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LKPhotoBrower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A44709D233A078900405061 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A44709E233A078900405061 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -111,8 +111,8 @@
 				0E2A005D237E82DD00272B27 /* LKPhotoBrowerVC.m */,
 				0E2A005A237E82DD00272B27 /* LKPhotoFullScreenCollectionCell.h */,
 				0E2A005E237E82DD00272B27 /* LKPhotoFullScreenCollectionCell.m */,
-				0E2A005C237E82DD00272B27 /* WTPhotoView.h */,
-				0E2A0059237E82DD00272B27 /* WTPhotoView.m */,
+				2B963F8F238055DA00D0308B /* LKPhotoView.h */,
+				2B963F90238055DA00D0308B /* LKPhotoView.m */,
 			);
 			path = LKPhotoBrowser;
 			sourceTree = "<group>";
@@ -319,8 +319,8 @@
 				0E2A006A237E831700272B27 /* ImageDataSingleTest.m in Sources */,
 				4A4470A5233A078900405061 /* ViewController.m in Sources */,
 				4A4470D8233A07D100405061 /* PhotoBrowerCell.m in Sources */,
+				2B963F91238055DA00D0308B /* LKPhotoView.m in Sources */,
 				0E2A0060237E82DD00272B27 /* LKPhotoBrowerVC.m in Sources */,
-				0E2A005F237E82DD00272B27 /* WTPhotoView.m in Sources */,
 				0E2A0061237E82DD00272B27 /* LKPhotoFullScreenCollectionCell.m in Sources */,
 				4A44709F233A078900405061 /* AppDelegate.m in Sources */,
 				4A4470B0233A078A00405061 /* main.m in Sources */,

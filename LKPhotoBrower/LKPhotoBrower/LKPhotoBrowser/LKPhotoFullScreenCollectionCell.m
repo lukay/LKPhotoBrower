@@ -8,7 +8,7 @@
 
 #import "LKPhotoFullScreenCollectionCell.h"
 
-#import "WTPhotoView.h"
+#import "LKPhotoView.h"
 
 @interface LKPhotoFullScreenCollectionCell ()
 <
@@ -33,7 +33,7 @@ UIGestureRecognizerDelegate
         __weak typeof(self)weakself = self;
         
         
-        _photoView = [WTPhotoView photoViewMakeWithFrame:CGRectMake(0, 0, sW, sH)];
+        _photoView = [LKPhotoView photoViewMakeWithFrame:CGRectMake(0, 0, sW, sH)];
         [self.contentView addSubview:_photoView];
         _photoView.singleTapBlock = ^{
             if (weakself.delegate != nil && [weakself.delegate respondsToSelector:@selector(lkpb_singleTapGesture)]) {

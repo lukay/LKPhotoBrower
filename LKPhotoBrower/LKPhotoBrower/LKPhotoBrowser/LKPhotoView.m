@@ -1,12 +1,12 @@
 //
-//  WTPhotoView.m
+//  LKPhotoView.m
 //  LilysFriends
 //
 //  Created by wintelsui on 7/29/17.
 //  Copyright (c) 2017 wintelsui. All rights reserved.
 //
 
-#import "WTPhotoView.h"
+#import "LKPhotoView.h"
 
 @interface UIImage (WTUtil)
 
@@ -52,7 +52,7 @@
 
 @end
 
-@interface WTPhotoView () <UIScrollViewDelegate,UIGestureRecognizerDelegate>
+@interface LKPhotoView () <UIScrollViewDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) UIImageView *imageView;
@@ -64,10 +64,10 @@
 
 @end
 
-@implementation WTPhotoView
+@implementation LKPhotoView
 
-+ (WTPhotoView *)photoViewMakeWithFrame:(CGRect)frame{
-    return [[WTPhotoView alloc] initWithFrame:frame];
++ (LKPhotoView *)photoViewMakeWithFrame:(CGRect)frame{
+    return [[LKPhotoView alloc] initWithFrame:frame];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame

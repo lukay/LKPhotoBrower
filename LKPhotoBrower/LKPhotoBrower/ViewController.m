@@ -74,7 +74,7 @@
     [images addObject:[ImageDataSingleTest new]];
     [images addObject:[ImageDataSingleTest new]];
     
-    LKPhotoBrowerVC *iv = [LKPhotoBrowerVC photoBrowserForImages:[images copy] index:0 source:_sourceImageView];
+    LKPhotoBrowerVC *iv = [LKPhotoBrowerVC photoBrowserForImages:[images copy] index:0 source:@[_sourceImageView,_sourceImageView,_sourceImageView,_sourceImageView,_sourceImageView]];
     [iv showFromViewController:self];
 }
 

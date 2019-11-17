@@ -36,13 +36,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LKPhotoBrowerVC : UIViewController
 
-+ (instancetype)photoBrowserForImages:(NSArray<LKPhotoBrowserImageDataProtocol> *)dataArray index:(int)currentIndex source:(UIImageView *)sourceImgView;
++ (instancetype)photoBrowserForImages:(NSArray<LKPhotoBrowserImageDataProtocol> *)dataArray
+                                index:(int)currentIndex
+                               source:(NSArray<UIImageView *> *)sourceImgViews;
 
 - (void)showFromViewController:(UIViewController * _Nonnull)rootViewController;
 
 @property (nonatomic, strong) NSArray<LKPhotoBrowserImageDataProtocol> *dataArray;
 @property (nonatomic, assign) int currentIndex;
-@property (nonatomic, weak) UIImageView *sourceImgView;
+@property (nonatomic, strong) NSArray<UIImageView *> *sourceImgViews;
 
 @end
 

@@ -7,7 +7,7 @@
 //
 
 #import "LKPhotoBrowerVC.h"
-#import "PhotoBrowerCell.h"
+
 #import <AVFoundation/AVFoundation.h>
 #import <AVKit/AVKit.h>
 
@@ -44,12 +44,14 @@
     return self;
 }
 
-+ (instancetype)photoBrowserForImages:(NSArray<LKPhotoBrowserImageDataProtocol> *)dataArray index:(int)currentIndex source:(UIImageView *)sourceImgView{
++ (instancetype)photoBrowserForImages:(NSArray<LKPhotoBrowserImageDataProtocol> *)dataArray
+                                index:(int)currentIndex
+                               source:(NSArray<UIImageView *> *)sourceImgViews{
     
     LKPhotoBrowerVC *iv = [[LKPhotoBrowerVC alloc] init];
     iv.dataArray = [dataArray copy];
     iv.currentIndex = currentIndex;
-    iv.sourceImgView = sourceImgView;
+    iv.sourceImgViews = sourceImgViews;
     
     return iv;
 }
@@ -120,31 +122,36 @@
 }
 
 - (void)photoBrowserWillShowWithAnimated {
-    [_collectionView setContentOffset:(CGPoint){_currentIndex * _layout.itemSize.width,0} animated:false];
+    [_collectionView setContentOffset:(CGPoint){_currentIndex * _layout.itemSize.width,0} animated:NO];
     
-    CGRect rect = [self.sourceImgView.superview convertRect:self.sourceImgView.frame toView:self.view];
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
-    imgView.image = self.sourceImgView.image;
-    imgView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view addSubview:imgView];
-    
-    [_collectionView setHidden:true];
-    self.view.alpha = 0;
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [imgView setCenter:[self.view center]];
-        [imgView setBounds:(CGRect){CGPointZero,CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)}];
-        [self->_collectionView setAlpha:1];
-        self.view.alpha = 1;
-    } completion:^(BOOL finished) {
-        [self->_collectionView setHidden:false];
+    if (_currentIndex < [self.sourceImgViews count]) {
+        UIImageView *sourceImgView = [self.sourceImgViews objectAtIndex:_currentIndex];
         
-        [UIView animateWithDuration:0.15 animations:^{
-            [imgView setAlpha:0.f];
+        CGRect rect = [sourceImgView.superview convertRect:sourceImgView.frame toView:self.view];
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
+        imgView.image = sourceImgView.image;
+        imgView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.view addSubview:imgView];
+        
+        [_collectionView setHidden:YES];
+        self.view.alpha = 0;
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [imgView setCenter:[self.view center]];
+            [imgView setBounds:(CGRect){CGPointZero,CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)}];
+            [self->_collectionView setAlpha:1];
+            self.view.alpha = 1;
         } completion:^(BOOL finished) {
-            [imgView removeFromSuperview];
+            [self->_collectionView setHidden:NO];
+            
+            [UIView animateWithDuration:0.15 animations:^{
+                [imgView setAlpha:0.f];
+            } completion:^(BOOL finished) {
+                [imgView removeFromSuperview];
+            }];
         }];
-    }];
-    
+    }else{
+        [_collectionView setHidden:NO];
+    }
 }
 
 //LKPhotoFullScreenCollectionCellDelegate <NSObject>
@@ -206,25 +213,35 @@
             
             if(fabs(point.y) > 200 || fabs(velocity.y) > 500){
                 // dismiss
+                self.view.userInteractionEnabled = NO;
+            
                 _startFrame = imageView.frame;
                 CGRect rectOld = [imageView.superview convertRect:imageView.frame toView:self.view];
                 UIImageView *imgVeiw = [[UIImageView alloc] initWithFrame:rectOld];
                 imgVeiw.image = imageView.image;
                 
-                imgVeiw.contentMode = self.sourceImgView.contentMode;
-                imgVeiw.clipsToBounds = self.sourceImgView.clipsToBounds;
-                
+                CGRect rect;
+                if (_currentIndex < [self.sourceImgViews count]) {
+                    UIImageView *sourceImgView = [self.sourceImgViews objectAtIndex:_currentIndex];
+                    imgVeiw.contentMode = sourceImgView.contentMode;
+                    imgVeiw.clipsToBounds = sourceImgView.clipsToBounds;
+                    
+                    rect = [sourceImgView.superview convertRect:sourceImgView.frame toView:self.view];
+                }else{
+                    CGFloat sH = self.view.frame.size.height;
+                    
+                    rect = CGRectMake(0, sH, 0, 0);
+                }
                 [self.view addSubview:imgVeiw];
                 self.collectionView.hidden = YES;
                 self.view.backgroundColor = [UIColor clearColor];
-                CGRect rect = [self.sourceImgView.superview convertRect:self.sourceImgView.frame toView:self.view];
                 [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                     imgVeiw.frame = rect;
                     self->_collectionView.alpha = 0.f;
                 } completion:^(BOOL finished) {
                     self->_startFrame = CGRectZero;
                     [imgVeiw removeFromSuperview];
-                    [self dismissViewControllerAnimated:false completion:nil];
+                    [self dismissViewControllerAnimated:NO completion:nil];
                 }];
             }else{
                 [self cancelAnimation:imageView];
@@ -246,33 +263,46 @@
 }
 
 - (void)dismissController {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_currentIndex inSection:0];
-    LKPhotoFullScreenCollectionCell *cell = (LKPhotoFullScreenCollectionCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+    self.view.userInteractionEnabled = NO;
     
-    UIImageView *imageView = [cell.photoView imgView];
     
-    CGRect rectOld = [[cell.photoView imgView].superview convertRect:[cell.photoView imgView].frame toView:self.view];
-    
-    UIImageView *imgVeiw = [[UIImageView alloc] initWithFrame:rectOld];
-    imgVeiw.image = imageView.image;
-    
-    imgVeiw.contentMode = self.sourceImgView.contentMode;
-    imgVeiw.clipsToBounds = self.sourceImgView.clipsToBounds;
-    
-    [self.view addSubview:imgVeiw];
-    self.collectionView.hidden = YES;
-    self.view.backgroundColor = [UIColor clearColor];
-    
-    CGRect rect = [self.sourceImgView.superview convertRect:self.sourceImgView.frame toView:self.view];
-    
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        imgVeiw.frame = rect;
-        self->_collectionView.alpha = 0.f;
-    } completion:^(BOOL finished) {
-        self->_startFrame = CGRectZero;
-        [imgVeiw removeFromSuperview];
-        [self dismissViewControllerAnimated:false completion:nil];
-    }];
+    if (_currentIndex < [self.sourceImgViews count]) {
+        UIImageView *sourceImgView = [self.sourceImgViews objectAtIndex:_currentIndex];
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_currentIndex inSection:0];
+        LKPhotoFullScreenCollectionCell *cell = (LKPhotoFullScreenCollectionCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+        
+        UIImageView *imageView = [cell.photoView imgView];
+        
+        CGRect rectOld = [[cell.photoView imgView].superview convertRect:[cell.photoView imgView].frame toView:self.view];
+        
+        UIImageView *imgVeiw = [[UIImageView alloc] initWithFrame:rectOld];
+        imgVeiw.image = imageView.image;
+        
+        imgVeiw.contentMode = sourceImgView.contentMode;
+        imgVeiw.clipsToBounds = sourceImgView.clipsToBounds;
+        
+        [self.view addSubview:imgVeiw];
+        self.collectionView.hidden = YES;
+        self.view.backgroundColor = [UIColor clearColor];
+        
+        CGRect rect = [sourceImgView.superview convertRect:sourceImgView.frame toView:self.view];
+        
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            imgVeiw.frame = rect;
+            self->_collectionView.alpha = 0.f;
+        } completion:^(BOOL finished) {
+            self->_startFrame = CGRectZero;
+            [imgVeiw removeFromSuperview];
+            [self dismissViewControllerAnimated:NO completion:nil];
+        }];
+    }else{
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.view.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [self dismissViewControllerAnimated:NO completion:nil];
+        }];
+    }
 }
 
 - (void)scrollViewDidTap{
@@ -292,13 +322,13 @@
     self.collectionView = [[UICollectionView alloc] initWithFrame:collectionRect collectionViewLayout:layout];
     [_collectionView setDataSource:self];
     [_collectionView setDelegate:self];
-    [_collectionView setPagingEnabled:true];
+    [_collectionView setPagingEnabled:YES];
     [_collectionView setBackgroundColor:[UIColor clearColor]];
-    [_collectionView setScrollsToTop:false];
-    [_collectionView setShowsHorizontalScrollIndicator:false];
+    [_collectionView setScrollsToTop:NO];
+    [_collectionView setShowsHorizontalScrollIndicator:NO];
     [_collectionView setContentOffset:CGPointZero];
     [_collectionView setAlpha:1.f];
-    [_collectionView setBounces:true];
+    [_collectionView setBounces:YES];
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     [self.collectionView registerClass:[LKPhotoFullScreenCollectionCell class] forCellWithReuseIdentifier:@"PhotoBrowerCellID"];

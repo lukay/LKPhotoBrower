@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WTPhotoView.h"
+#import "LKPhotoView.h"
 
 @protocol LKPhotoFullScreenCollectionCellDelegate <NSObject>
 
@@ -19,7 +19,7 @@
 @interface LKPhotoFullScreenCollectionCell : UICollectionViewCell
 
 @property (nonatomic, assign) id <LKPhotoFullScreenCollectionCellDelegate> delegate;
-@property (nonatomic, strong) WTPhotoView *photoView;
+@property (nonatomic, strong) LKPhotoView *photoView;
 @property (nonatomic, strong) UIButton *playBtn;
 
 - (void)loadImage:(UIImage *)image;
