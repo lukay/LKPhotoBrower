@@ -45,7 +45,7 @@
 }
 
 + (instancetype)photoBrowserForImages:(NSArray<LKPhotoBrowserImageDataProtocol> *)dataArray
-                                index:(int)currentIndex
+                                index:(NSInteger)currentIndex
                                source:(NSArray<UIImageView *> *)sourceImgViews{
     
     LKPhotoBrowerVC *iv = [[LKPhotoBrowerVC alloc] init];
@@ -126,30 +126,47 @@
     
     if (_currentIndex < [self.sourceImgViews count]) {
         UIImageView *sourceImgView = [self.sourceImgViews objectAtIndex:_currentIndex];
+        id asset = [self.dataArray objectAtIndex:_currentIndex];
         
-        CGRect rect = [sourceImgView.superview convertRect:sourceImgView.frame toView:self.view];
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
-        imgView.image = sourceImgView.image;
-        imgView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.view addSubview:imgView];
-        
-        [_collectionView setHidden:YES];
-        self.view.alpha = 0;
-        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            [imgView setCenter:[self.view center]];
-            [imgView setBounds:(CGRect){CGPointZero,CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)}];
-            [self->_collectionView setAlpha:1];
-            self.view.alpha = 1;
-        } completion:^(BOOL finished) {
-            [self->_collectionView setHidden:NO];
-            
-            [UIView animateWithDuration:0.15 animations:^{
-                [imgView setAlpha:0.f];
-            } completion:^(BOOL finished) {
-                [imgView removeFromSuperview];
-            }];
+        [asset imageThumbnail:nil original:^(UIImage * _Nullable image, NSString * _Nullable imagePath) {
+            UIImage *imageOld = image;
+            if (image == nil) {
+                if (imagePath != nil && imagePath.length > 0) {
+                    if ([imagePath hasPrefix:@"http"] || [imagePath hasPrefix:@"ftp"]) {}else{
+                        imageOld = [UIImage imageWithContentsOfFile:imagePath];
+                    }
+                }
+            }
+            if (imageOld == nil) {
+                imageOld = sourceImgView.image;
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CGRect rect = [sourceImgView.superview convertRect:sourceImgView.frame toView:self.view];
+                UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
+                imgView.image = imageOld;
+                imgView.contentMode = UIViewContentModeScaleAspectFit;
+                [self.view addSubview:imgView];
+                
+                [_collectionView setHidden:YES];
+                self.view.alpha = 0;
+                [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    [imgView setCenter:[self.view center]];
+                    [imgView setBounds:(CGRect){CGPointZero,CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)}];
+                    [self->_collectionView setAlpha:1];
+                    self.view.alpha = 1;
+                } completion:^(BOOL finished) {
+                    [self->_collectionView setHidden:NO];
+                    
+                    [UIView animateWithDuration:0.15 animations:^{
+                        [imgView setAlpha:0.f];
+                    } completion:^(BOOL finished) {
+                        [imgView removeFromSuperview];
+                    }];
+                }];
+            });
         }];
     }else{
+        self.view.alpha = 1;
         [_collectionView setHidden:NO];
     }
 }
@@ -340,11 +357,13 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self performSelector:@selector(updateCurrentImageFileSize) withObject:nil afterDelay:0.2];
+    
 }
 
 - (void)updateCurrentImageFileSize {
     NSIndexPath *indexPath = [self.collectionView indexPathsForVisibleItems].firstObject;
-    id asset = [self.dataArray objectAtIndex:indexPath.item];
+    _currentIndex = indexPath.item;
+    id asset = [self.dataArray objectAtIndex:_currentIndex];
     if ([asset respondsToSelector:@selector(mediaFileSizeStrCompletion:)]){
         
         [asset mediaFileSizeStrCompletion:^(NSString * _Nullable sizeStr) {
@@ -429,6 +448,7 @@
         [cell.playBtn removeTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     
+    _currentIndex = indexPath.item;
     return cell;
 }
 
